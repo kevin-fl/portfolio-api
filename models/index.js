@@ -28,6 +28,13 @@ db.Subject = require('./subject')(sequelize);
 db.CategorySubject = require('./categorySubject')(sequelize);
 db.Member = require('./member')(sequelize);
 db.Project = require('./project')(sequelize);
+db.Commentaires = require('./commentaires')(sequelize);
+db.Notes = require('./notes')(sequelize);
+db.News = require('./news')(sequelize);
+db.Member = require('./member')(sequelize);
+
+//me reste a faire les associations one to one et many to many de- project
+// de -commentaires -notes -news et -member 
 
 // Add Association
 // - [One to Many] Message - Subject
