@@ -22,51 +22,51 @@ const db = {};
 db.sequelize = sequelize;
 
 // Add Models
-db.Category = require('./category')(sequelize);
-db.Message = require('./message')(sequelize);
-db.Subject = require('./subject')(sequelize);
-db.CategorySubject = require('./categorySubject')(sequelize);
-db.Member = require('./member')(sequelize);
 db.Project = require('./project')(sequelize);
 db.Commentaires = require('./commentaires')(sequelize);
+db.User = require('./user')(sequelize);
 db.Notes = require('./notes')(sequelize);
 db.News = require('./news')(sequelize);
-db.Member = require('./member')(sequelize);
+db.CategoryProject = require('./categoryProject')(sequelize);
 
-//me reste a faire les associations one to one et many to many de- project
-// de -commentaires -notes -news et -member 
 
-// Add Association
-// - [One to Many] Message - Subject
-db.Subject.hasMany(db.Message, {
-    foreignKey: {
-        allowNull: false
-    },
-    onDelete: 'NO ACTION',
-    onUpdate: 'CASCADE'
-});
-db.Message.belongsTo(db.Subject);
-// - [Many to Many] Subject - Category
-db.Subject.belongsToMany(db.Category, { through: db.CategorySubject });
-db.Category.belongsToMany(db.Subject, { through: db.CategorySubject });
-// - [One to Many] Subject - Member 
-db.Member.hasMany(db.Subject, {
-    foreignKey: {
-        allowNull: false
-    },
-    onDelete: 'NO ACTION',
-    onUpdate: 'CASCADE'
-});
-db.Subject.belongsTo(db.Member);
-// - [One to Many] Message - Member  
-db.Member.hasMany(db.Message, {
-    foreignKey: {
-        allowNull: false
-    },
-    onDelete: 'NO ACTION',
-    onUpdate: 'CASCADE'
-});
-db.Message.belongsTo(db.Member);
 
-// Export object DB
+//Add Association
+//NB: pour l exemple de l association Project -> Commentaires on va appeler commentaires dans Project sous forme de number , c est une particularité des DB , aime recevoir en number et non en string . ds ce cas ci sous forme de tableau vide .
+
+// //- [One to Many] Commentaires - Project  
+// db.Project.hasMany(db.Commentaires, {
+//     foreignKey: {
+//         allowNull: false
+//     },
+//     onDelete: 'NO ACTION',
+//     onUpdate: 'CASCADE'
+// });
+// db.Commentaires.belongsTo(db.Project);
+
+
+// //- [one to many] news-notes  une news ou plusieurs news peuvent avoir une note d un member .   Many to Many ? 
+// db.News.hasMany(db.Notes, {
+//     foreignKey: {
+//         allowNull: true
+//     },
+//     onDelete: 'NO ACTION',
+//     onUpdate: 'CASCADE'
+// });
+// db.Notes.belongsTo(db.News);
+
+
+// // - [one to many] commentaire - user     un user peut mettre plusieurs commentaires
+// db.User.hasMany(db.Commentaires, {
+//     foreignKey: {
+//         allowNull: false
+//     },
+//     onDelete: 'NO ACTION',
+//     onUpdate: 'CASCADE'
+// });
+// db.Commentaires.belongsTo(db.User);
+
+
+
+
 module.exports = db;

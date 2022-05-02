@@ -1,5 +1,4 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const message = require('./message');
 
 /**
  * @param {Sequelize} sequelize
@@ -7,7 +6,7 @@ const message = require('./message');
  */
 
 module.exports = (sequelize) => {
-    const Notes = sequelize.define('notes', {
+    const Notes = sequelize.define('note', {
         id: {
             type: DataTypes.BIGINT,
             autoIncrement: true,
@@ -18,8 +17,6 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING(10),  // comment faire pour accepter jsute emoji ou operateur '+' '-'
             allowNull: true
         }
-    }, {
-        tableName: 'notesMessage'
     });
 
     return Notes;

@@ -1,43 +1,51 @@
 const { DataTypes, Sequelize } = require('sequelize');
 
 /**
- * Représentation du model Member
  * @param {Sequelize} sequelize
  * @returns
  */
+
 module.exports = (sequelize) => {
 
-    // Initialize Member model
-    const Member = sequelize.define('member', {
-        // Attributs
+
+    const User = sequelize.define('user', {
         pseudo: {
             type: DataTypes.STRING(50),
             allowNull: false,
             unique: {
-                name: 'UK_Member__Pseudo'
+                name: 'user'
+
             }
+
         },
         email: {
             type: DataTypes.STRING(255),
             allowNull: false,
             unique: {
-                name: 'UK_Member__Email'
+                name: 'User_pseudo'
+
             }
+
         },
         password: {
             type: DataTypes.CHAR(60),
             allowNull: false
+
         },
         isAdmin: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false
+
         }
+
     }, {
-        // Si on souhaite avoir "createdAt" mais pas "updatedAt" 
+        // //si on souhaite avoir "createAt" mais pas "updateAt"
         timestamps: true,
         updatedAt: false
+
     });
 
-    return Member;
+    return User;
+
 };

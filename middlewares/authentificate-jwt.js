@@ -43,7 +43,7 @@ const authentificateJwt = (options = { adminRight: false }) => {
         if (options.adminRight) {
             // Validation des droits via la base de donnée 
             // -> Certitude d'avoir les données à jours
-            const admin = await db.Member.findOne({
+            const admin = await db.User.findOne({
                 where: {
                     [Op.and]: [
                         { id: tokenData.id },

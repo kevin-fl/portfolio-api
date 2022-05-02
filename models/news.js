@@ -6,7 +6,8 @@ module.exports = (sequelize) => {
         id: {
             type: DataTypes.BIGINT,
             autoIncrement: true,
-            primaryKey: true
+            primaryKey: true,
+
         },
         name: {
             type: DataTypes.STRING,
@@ -17,13 +18,13 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         Image: {
-            type: DataTypes.STRING ?
-                allowNull : false
+            type: DataTypes.STRING,
+            allowNull: false
 
         },
         text: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
 
     });

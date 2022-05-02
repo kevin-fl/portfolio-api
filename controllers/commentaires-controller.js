@@ -1,5 +1,4 @@
 const db = require("../models");
-const member = require("../models/member");     // ? 
 const { NotFoundErrorResponse, ErrorResponse } = require("../response-schemas/error-schema");
 const { SuccessObjectResponse } = require("../response-schemas/succes-schema");
 
@@ -8,7 +7,7 @@ const commentairesController = {
     getById: async (req, res) => {
         const id = parseInt(req.params.id);
 
-        const commentaires = await db.commentaires.findByPK(id, {
+        const commentaires = await db.Commentaires.findByPK(id, {
             include: {
                 model: db.Member,
                 attributes: ['commentairesId', 'memberId', 'projectId']

@@ -27,12 +27,20 @@ db.sequelize.authenticate()
 
 // Sync between models and database (Required DDL right)
 if (NODE_ENV !== 'production') {
-    // db.sequelize.sync({ force: true });
+    // db.sequelize.sync({ force: true });    // quand on met en force true , ecrase tes les donnees et remet les tables actualiser 
 }
 
 // Add Routing
 const router = require('./routes');
 app.use('/api', router);
+
+app.use((error, req, res, next) => {
+    if (process.env.NODE_ENV === 'development') {
+        console.log(error);
+        return res.status(500).json(error);
+    }
+    res.sendStatus(500);
+});
 
 // Start Web API
 app.listen(PORT, () => {
