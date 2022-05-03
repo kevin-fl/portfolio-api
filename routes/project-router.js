@@ -9,6 +9,9 @@ projectRouter.route('/')
     .get(projectController.getAll)
     .post(authentificateJwt({ adminRight: true }), bodyValidation(projectValidator), projectController.add);
 
+projectRouter.route('/:id([0-9]+)')
+    .get(projectController.getById)
+    .delete(authentificateJwt({ adminRight: true }), projectController.delete);
 
 
 module.exports = projectRouter;

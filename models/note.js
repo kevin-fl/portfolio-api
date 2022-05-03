@@ -6,7 +6,7 @@ const { Sequelize, DataTypes } = require('sequelize');
  */
 
 module.exports = (sequelize) => {
-    const Notes = sequelize.define('note', {
+    const Note = sequelize.define('note', {
         id: {
             type: DataTypes.BIGINT,
             autoIncrement: true,
@@ -19,6 +19,6 @@ module.exports = (sequelize) => {
         }
     });
 
-    return Notes;
+    return Note;
 
 };

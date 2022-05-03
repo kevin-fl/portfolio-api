@@ -1,14 +1,32 @@
 const { Project } = require("../models");
 const db = require("../models");
 const project = require("../models/project");
+const { NotFoundErrorResponse } = require("../response-schemas/error-schema");
 
 const projectController = {
+
+    getById: async (req, res) => {
+
+        const id = parseInt(req.params.id);
+
+
+        const projectId = await db.Project.findByPk(id);
+
+        if (!projectId) {
+            return res.status(404).json(new NotFoundErrorResponse('project not found'));
+
+        }
+
+        return res.json(projectId);
+
+    },
 
     getAll: async (req, res) => {
 
         const projects = await db.Project.findAndCountAll();
 
         return res.json(projects);
+
 
     },
 
@@ -21,7 +39,23 @@ const projectController = {
 
 
 
+    },
+
+    delete: async (req, res) => {
+        const id = parseInt(req.params.id);
+        const goal = await db.Project.findByPk(id);
+
+        if (!goal) {
+            return res.status(400).json(new NotFoundErrorResponse('Project not found'));
+
+        }
+
+        await goal.destroy();
+
+        res.sendStatus(204);
     }
+
+
 
 
 };
@@ -30,30 +64,3 @@ module.exports = projectController;
 
 
 
-/* RAJOUTER UN ADD POUR RAJOUTER DES PROJETS ??? 
-add: async (req, res) => {
-    // Récuperation des donnée à ajouter en DB
-    const data = req.validatedData;
-    // Récuperation des données liée au login
-    data.memberId = req.user.id;
-    // Ajout d'une transaction
-    // -> Sécurité pour s'assuré que toutes les opérations DB soit réalisé ou aucunne
-    const transaction = await db.sequelize.transaction();
-    try {
-        // Ajout d'un nouveau sujet
-        const newSubject = await db.Subject.create(data, { transaction });
-        // Ajout des categories via l'id (si elle est présente en DB)
-        await newSubject.addCategory(data.categories, { transaction });
-        // Validation des modifications dans la DB
-        await transaction.commit();
-        // Envoi du sujet créé
-        res.json(new SuccessObjectResponse(newSubject));
-    }
-    catch (error) {
-        // Retour à l'etat (avant les modifications)
-        await transaction.rollback();
-        // Propagation de l'erreur
-        throw error;
-    }
-},
-*/

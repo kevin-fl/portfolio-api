@@ -6,8 +6,14 @@ const { newsValidator } = require('../validators/news-validator');
 
 const newsRouter = require('express').Router();
 
+newsRouter.route('/')
+    .get(newsController.getAll)
+    .post(authentificateJwt({ adminRight: true }), bodyValidation(newsValidator), newsController.add);
+
+
+
 newsRouter.route('/:id([0-9]+)')
     .get(newsController.getById)
-    .post(authentificateJwt({ adminRight: true }), bodyValidation(newsValidator), newsController.add);
+    .delete(authentificateJwt({ adminRight: true }), newsController.delete);
 
 module.exports = newsRouter;

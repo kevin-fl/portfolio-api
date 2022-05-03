@@ -1,6 +1,8 @@
+const { parse } = require("dotenv-flow");
 const db = require("../models");
 const { NotFoundErrorResponse, ErrorResponse } = require("../response-schemas/error-schema");
 const { SuccessObjectResponse } = require("../response-schemas/succes-schema");
+
 
 const newsController = {
 
@@ -8,17 +10,11 @@ const newsController = {
 
         const id = parseInt(req.params.id);
 
-        const newsEmoji = await db.News.findByPk(id, {
-            include: {
-                model: db.Member,
-                attributes: ['id']
-
-            },
-        });
-        if (!newsEmoji) {
+        const news = await db.News.findByPk(id);
+        if (!news) {
             return res.status(404).json(new NotFoundErrorResponse('Emoji reaction to news not found'));
         }
-        res.json(new SuccessObjectResponse(newsEmoji));
+        return res.json(new SuccessObjectResponse(news));
 
     },
 
@@ -33,7 +29,7 @@ const newsController = {
 
     add: async (req, res) => {
 
-        const data = req.validateData;
+        const data = req.validatedData;
 
         const addEmojiToNews = await db.News.create(data);
         res.json(addEmojiToNews);
@@ -59,7 +55,20 @@ const newsController = {
             return res.status(400).json(new ErrorResponse('Error during update of news reaction'));
         }
         res.json(new SuccessObjectResponse(updatedDataNews));
-    }
+    },
+
+    delete: async (req, res) => {
+        const id = parseInt(req.params.id);
+        const goal = await db.News.findByPk(id);
+
+        if (!goal) {
+            return res.status(400).json(new NotFoundErrorResponse('news not found'));
+        }
+
+        await goal.destroy();
+        res.sendStatus(204);
+    },
+
 
 };
 

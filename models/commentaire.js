@@ -2,29 +2,12 @@ const { Sequelize, DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
 
-    const Commentaires = sequelize.define('commentaires', {
+    const Commentaire = sequelize.define('commentaire', {
 
         id: {
             type: DataTypes.BIGINT,
             autoIncrement: true,
             primaryKey: true
-
-        },
-        project_Id: {
-            type: DataTypes.BIGINT,
-            allowNull: false
-
-        },
-        member_Id: {
-            type: DataTypes.BIGINT,
-            allowNull: false
-
-
-        },
-        commentaires_Id: {
-            type: DataTypes.BIGINT,
-            allowNull: false
-
 
         },
         content: {
@@ -34,7 +17,7 @@ module.exports = (sequelize) => {
 
     });
 
-    return Commentaires;
+    return Commentaire;
 };
 
 

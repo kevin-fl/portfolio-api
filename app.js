@@ -27,7 +27,11 @@ db.sequelize.authenticate()
 
 // Sync between models and database (Required DDL right)
 if (NODE_ENV !== 'production') {
-    // db.sequelize.sync({ force: true });    // quand on met en force true , ecrase tes les donnees et remet les tables actualiser 
+    // db.sequelize.sync({
+
+    // force: true,
+    // alter: true
+    // });    // quand on met en force true , ecrase tes les donnees et remet les tables actualiser 
 }
 
 // Add Routing
