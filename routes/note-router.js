@@ -16,5 +16,4 @@ noteRouter.route('/:id([0-9]+)')
     .put(authentificateJwt(), bodyValidation(noteValidator), noteController.update)
     .delete(authentificateJwt(), noteController.delete);
 
-
 module.exports = noteRouter; 

@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
 
         },
         content: {
-            type: DataTypes.STRING(10),  // comment faire pour accepter jsute emoji ou operateur '+' '-'
+            type: DataTypes.BOOLEAN,
             allowNull: true
         }
     });

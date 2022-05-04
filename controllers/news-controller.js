@@ -42,16 +42,15 @@ const newsController = {
         const dataNews = req.validatedData;
         const memberIdNews = req.user.id;
 
-        const [nbRowNews, updatedDataNews] = await db.News.update(dataNews, {
+        const result = await db.News.update(dataNews, {
             where: {
                 [op.and]: [
                     { idNews },
                     { memberIdNews }
                 ]
-            },
-            returning: true
+            }
         });
-        if (nbRowNews !== 1) {
+        if (result[0] !== 1) {
             return res.status(400).json(new ErrorResponse('Error during update of news reaction'));
         }
         res.json(new SuccessObjectResponse(updatedDataNews));

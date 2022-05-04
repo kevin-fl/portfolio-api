@@ -1,7 +1,6 @@
-const { Project } = require("../models");
 const db = require("../models");
-const project = require("../models/project");
-const { NotFoundErrorResponse } = require("../response-schemas/error-schema");
+const { NotFoundErrorResponse, ErrorResponse } = require("../response-schemas/error-schema");
+const { SuccessObjectResponse } = require("../response-schemas/succes-schema");
 
 const projectController = {
 
@@ -39,7 +38,22 @@ const projectController = {
 
 
 
+
     },
+
+    update: async (req, res) => {
+        const id = req.params.id;
+        const data = req.validatedData;
+        const result = await db.Project.update(data, {
+            where: { id }
+
+        });
+        if (result[0] !== 1) {
+            return res.status(400).json(new ErrorResponse('project not updated and not found'));
+        }
+        res.json(new SuccessObjectResponse('Project updated !'));
+    },
+
 
     delete: async (req, res) => {
         const id = parseInt(req.params.id);

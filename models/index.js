@@ -69,6 +69,17 @@ db.User.hasMany(db.Commentaire, {
 db.Commentaire.belongsTo(db.User);
 
 
+// - 1 user --> peut mettre une note --> sur une ou plusieurs news . 
+// -[one to many] user-note  1 user can interact with many news 
+db.User.hasMany(db.Note, {
+    foreignKey: {
+        allowNull: true
+    },
+    onDelete: 'NO ACTION',
+    onUpdate: 'CASCADE'
+});
+db.Note.belongsTo(db.User);
+
 
 db.Project.belongsToMany(db.Commentaire, { through: 'ProjectCommentaires' });
 db.Commentaire.belongsToMany(db.Project, { through: 'ProjectCommentaires' });

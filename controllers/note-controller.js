@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const db = require("../models");
 const { NotFoundErrorResponse, ErrorResponse } = require("../response-schemas/error-schema");
 const { SuccessObjectResponse } = require("../response-schemas/succes-schema");
@@ -23,20 +24,19 @@ const noteController = {
     update: async (req, res) => {
         const idNote = parseInt(req.params.id);
         const dataNote = req.validatedData;
-        const memberIdNote = req.user.id;
+        const userIdNote = req.user.id;
 
 
-        const [nbRow, updatedData] = await db.Note.update(dataNote, {
+        const result = await db.Note.update(dataNote, {
             where: {
                 [Op.and]: [
                     { idNote },  // ou bien juste id ? 
-                    { memberIdNote }
+                    { userIdNote }
                 ]
-            },
-            returning: true
+            }
         });
 
-        if (nbRow !== 1) {
+        if (result[0] !== 1) {
             return res.status(400).json(new ErrorResponse('Error during notes update'));
         }
         res.json(new SuccessObjectResponse(updatedData));
@@ -45,7 +45,12 @@ const noteController = {
 
     add: async (req, res) => {
         const data = req.validatedData;
+        const user = req.user;
+        data.newsId = req.params.id;
+        data.userId = user.id;
+
         const newNote = await db.Note.create(data);
+
         res.json(newNote);
     },
 
