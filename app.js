@@ -29,8 +29,8 @@ db.sequelize.authenticate()
 if (NODE_ENV !== 'production') {
     // db.sequelize.sync({
 
-    // force: true,
-    // alter: true
+    //     // force: true,
+    //     // alter: true
     // });    // quand on met en force true , ecrase tes les donnees et remet les tables actualiser 
 }
 

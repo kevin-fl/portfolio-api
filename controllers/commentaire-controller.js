@@ -51,11 +51,11 @@ const commentaireController = {
 
     add: async (req, res) => {
         const data = req.validatedData;
+        const projectId = req.params.id;
         const user = req.user;
-
         // Injection du user (Jeton d'authentification de type JWT) dans les données
         data.userId = user.id;
-
+        data.projectId = projectId;
         const addCommentaire = await db.Commentaire.create(data);
         res.json(addCommentaire);
 

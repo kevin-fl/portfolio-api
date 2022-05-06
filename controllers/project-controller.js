@@ -9,7 +9,18 @@ const projectController = {
         const id = parseInt(req.params.id);
 
 
-        const projectId = await db.Project.findByPk(id);
+        const projectId = await db.Project.findByPk(id, {
+            include: [
+                {
+                    model: db.Commentaire,
+                    attributes: ['id', 'content', 'projectId', 'userId'],
+                    include: {
+                        model: db.User,
+                        attributes: ['id', 'pseudo']
+                    }
+                },
+            ]
+        });
 
         if (!projectId) {
             return res.status(404).json(new NotFoundErrorResponse('project not found'));

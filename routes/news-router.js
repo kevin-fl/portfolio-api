@@ -16,7 +16,8 @@ newsRouter.route('/')
 
 newsRouter.route('/:id([0-9]+)')
     .get(newsController.getById)
-    .delete(authentificateJwt({ adminRight: true }), newsController.delete);
+    .delete(authentificateJwt({ adminRight: true }), newsController.delete)
+    .put(authentificateJwt(), bodyValidation(newsValidator), newsController.update);
 
 newsRouter.route('/:id([0-9]+)/note')
     .post(authentificateJwt(), bodyValidation(noteValidator), noteController.add);

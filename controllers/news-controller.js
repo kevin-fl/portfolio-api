@@ -1,4 +1,5 @@
 const { parse } = require("dotenv-flow");
+const { Op } = require("sequelize");
 const db = require("../models");
 const { NotFoundErrorResponse, ErrorResponse } = require("../response-schemas/error-schema");
 const { SuccessObjectResponse } = require("../response-schemas/succes-schema");
@@ -38,22 +39,17 @@ const newsController = {
 
 
     update: async (req, res) => {
-        const idNews = parseInt(req.params.id);
+        const id = parseInt(req.params.id);
         const dataNews = req.validatedData;
-        const memberIdNews = req.user.id;
+        // const memberIdNews = req.user.id;
 
         const result = await db.News.update(dataNews, {
-            where: {
-                [op.and]: [
-                    { idNews },
-                    { memberIdNews }
-                ]
-            }
+            where: { id }
         });
         if (result[0] !== 1) {
             return res.status(400).json(new ErrorResponse('Error during update of news reaction'));
         }
-        res.json(new SuccessObjectResponse(updatedDataNews));
+        res.json(new SuccessObjectResponse('Data updated'));
     },
 
     delete: async (req, res) => {

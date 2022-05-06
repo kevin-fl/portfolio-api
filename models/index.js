@@ -80,13 +80,9 @@ db.User.hasMany(db.Note, {
 });
 db.Note.belongsTo(db.User);
 
-
-db.Project.belongsToMany(db.Commentaire, { through: 'ProjectCommentaires' });
-db.Commentaire.belongsToMany(db.Project, { through: 'ProjectCommentaires' });
-
-db.User.belongsToMany(db.Commentaire, { through: 'UserCommentaires' });
-db.Commentaire.belongsToMany(db.User, { through: 'UserCommentaires' });
-
+//
+db.Project.belongsTo(db.User);
+db.User.hasMany(db.Project);
 
 
 module.exports = db;
