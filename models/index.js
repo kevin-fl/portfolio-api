@@ -41,7 +41,7 @@ db.Project.hasMany(db.Commentaire, {
     foreignKey: {
         allowNull: false
     },
-    onDelete: 'NO ACTION',
+    onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 });
 db.Commentaire.belongsTo(db.Project);
