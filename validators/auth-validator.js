@@ -19,3 +19,10 @@ module.exports = {
     registerValidator,
     loginValidator
 };
+
+
+
+
+
+// sequelize => permet de se connecter a une base de données et de faciliter sa gestion .
+// yup=> librairie JS qui permet de creer des schema de validations pour objet javascript , en fonction de ce qu'on a defini ex : interger , string , min , max 
