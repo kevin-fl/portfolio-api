@@ -33,6 +33,9 @@ module.exports = (sequelize) => {
 
         },
         isAdmin: {
+            
+            
+//             NB: en test , je peux changer le isAdmin en true via la db , table user -> edit rows -> isAdmin a true 
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false
