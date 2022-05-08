@@ -1,3 +1,5 @@
+// on a fait un dossier a part pour les schemas de reponse succes et error , on les apelle dans notre controller 
+
 class ErrorResponse {
     constructor(message, status = 400) {
         this.status = status;
