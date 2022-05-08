@@ -46,6 +46,8 @@ const newsController = {
         const result = await db.News.update(dataNews, {
             where: { id }
         });
+        
+//         result tableau commence a l index 0 
         if (result[0] !== 1) {
             return res.status(400).json(new ErrorResponse('Error during update of news reaction'));
         }
@@ -71,5 +73,3 @@ module.exports = newsController;
 
 
 
-// est ce que update add getById est necessaire ?
-// ln 51[op.and] lié a la Db , qu elle action entreprendre des lors ?? 
