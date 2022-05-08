@@ -11,7 +11,9 @@ const projectRouter = require('express').Router();
 
 projectRouter.route('/')
     .get(projectController.getAll)
-    .post(authentificateJwt({ adminRight: true }), bodyValidation(projectValidator), projectController.add);
+// adminRight: true pour permettred edit seulement si on est admin .  
+    .post(authentificateJwt({ adminRight: true }), bodyValidation(projectValidator), projectController.add);  
+    
 
 projectRouter.route('/:id([0-9]+)')
     .get(projectController.getById)
